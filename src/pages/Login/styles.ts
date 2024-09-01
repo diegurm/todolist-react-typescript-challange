@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div.attrs({
-  className: 'flex items-center justify-center min-h-screen bg-gray-100',
+  className: 'flex items-center justify-center min-h-screen',
 })``;
 
 export const FormWrapper = styled.div.attrs({
-  className: 'w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md',
+  className: 'md:container md:mx-auto max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md',
 })``;
 
 export const Title = styled.h2.attrs({

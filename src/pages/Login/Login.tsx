@@ -13,7 +13,7 @@ const Login: React.FC = () => {
   return (
     <S.Container>
       <S.FormWrapper>
-        <S.Title>Sign in to TodoList</S.Title>
+        <S.Title>Sign in</S.Title>
         <S.Form onSubmit={handleEmailLogin}>
           <S.InputGroup>
             <S.Input id="email" name="email" type="email" required placeholder="Email address" className='rounded-t-md' />
