@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+ 
 export const Container = styled.div.attrs<{ completed: boolean }>({
   className: 'flex items-center justify-between px-3 py-2 border border-gray-200 rounded-md shadow-sm',
 })`

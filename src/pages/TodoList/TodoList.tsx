@@ -2,41 +2,18 @@ import React, { useState } from 'react';
 
 import * as S from './styles';
 import TodoItem from './components/TodoItem/TodoItem';
-
-interface Todo {
-  id: number;
-  text: string;
-  completed: boolean;
-}
+import { useTodos } from '../../context/TodoContext';
 
 const Todolist: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const { todos, loading, addTodo, toggleComplete, removeTodo, editTodo } = useTodos();
   const [newTodo, setNewTodo] = useState('');
 
-  const addTodo = (text: string) => {
-    const newTask = {
-      id: Date.now(),
-      text,
-      completed: false,
-    };
-    setTodos([...todos, newTask]);
-    setNewTodo('');
-  };
-
-  const toggleComplete = (id: number) => {
-    setTodos(
-      todos.map((todo: Todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo))
-    );
-  };
-
-  const removeTodo = (id: number) => {
-    setTodos(todos.filter((todo: Todo) => todo.id !== id));
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newTodo.trim()) {
       addTodo(newTodo);
+      setNewTodo('');
     }
   };
 
@@ -54,16 +31,25 @@ const Todolist: React.FC = () => {
           <S.AddButton type="submit">Add</S.AddButton>
         </S.Form>
         <div className="space-y-2" >
-          {todos.map((todo: any) => (
-            <TodoItem
-              key={todo.id}
-              id={todo.id}
-              text={todo.text}
-              completed={todo.completed}
-              toggleComplete={toggleComplete}
-              removeTodo={removeTodo}
-            />
-          ))}
+          {loading ? (
+            <p>Loading to-dos...</p>
+          ) : todos.length === 0 ? (
+            <p>No to-dos available.</p>
+          ) : (
+            <>
+              {todos.map((todo: any) => (
+                <TodoItem
+                  key={todo.id}
+                  id={todo.id}
+                  text={todo.text}
+                  completed={todo.completed}
+                  toggleComplete={toggleComplete}
+                  removeTodo={removeTodo}
+                  editTodo={editTodo}
+                />
+              ))}
+            </>
+          )}
         </div>
 
       </S.FormWrapper>

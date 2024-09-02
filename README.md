@@ -41,10 +41,10 @@ yarn start
 ```
 
 ## 📝 A Fazer
- * [ ] Autenticação com Firebase
- * [ ] CRUD de Tarefas
- * [ ] Filtros de Tarefas
- * [ ] Gerenciamento de Estado
+ * [x] Autenticação com Firebase
+ * [ ] CRUD de Tarefas com Firebase
+ * [ ] Filtros de Tarefas com Firebase
+ * [ ] Gerenciamento de Estado (Redux + Context API)
  * [ ] Testes Automatizados
  * [ ] Deploy
 

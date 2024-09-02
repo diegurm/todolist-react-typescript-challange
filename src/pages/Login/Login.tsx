@@ -17,8 +17,6 @@ const Login: React.FC = () => {
     const email = "teste@teste.com";
     const password = "teste$123";
 
-    console.log({event})
-
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       dispatch(setUser(userCredential.user));
