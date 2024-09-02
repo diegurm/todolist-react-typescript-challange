@@ -5,7 +5,7 @@ export const Container = styled.div.attrs({
 })``;
 
 export const FormWrapper = styled.div.attrs({
-  className: 'md:container md:mx-auto max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md',
+  className: 'w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md',
 })``;
 
 export const Title = styled.h2.attrs({

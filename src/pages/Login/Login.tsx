@@ -1,13 +1,42 @@
 import React from 'react';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
+import { setUser } from '../../redux/slices/authSlice';
+import { auth } from '../../services/firebase';
 import * as S from './styles';
 
 const Login: React.FC = () => {
-  const handleEmailLogin = (event: React.FormEvent) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleEmailLogin = async(event: React.FormEvent) => {
     event.preventDefault();
+
+    const email = "teste@teste.com";
+    const password = "teste$123";
+
+    console.log({event})
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      dispatch(setUser(userCredential.user));
+      navigate('/');
+    } catch (error) {
+      console.error("Failed to sign in with email:", error);
+    }
   };
 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, provider);
+      dispatch(setUser(userCredential.user));
+      navigate('/');
+    } catch (error) {
+      console.error("Failed to sign in with Google:", error);
+    }
   };
 
   return (
