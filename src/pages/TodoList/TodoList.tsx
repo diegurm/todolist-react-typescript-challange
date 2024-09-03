@@ -5,9 +5,9 @@ import TodoItem from './components/TodoItem/TodoItem';
 import { useTodos } from '../../context/TodoContext';
 
 const Todolist: React.FC = () => {
-  const { todos, loading, addTodo, toggleComplete, removeTodo, editTodo } = useTodos();
+  const { todos, loading, addTodo, toggleComplete, removeTodo, editTodo, filterTodos } = useTodos();
   const [newTodo, setNewTodo] = useState('');
-
+  const [filter, setFilter] = useState('all');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,6 +15,11 @@ const Todolist: React.FC = () => {
       addTodo(newTodo);
       setNewTodo('');
     }
+  };
+
+  const handleFilterChange = (newFilter: 'all' | 'completed' | 'pending') => {
+    setFilter(newFilter);
+    filterTodos(newFilter);
   };
 
   return (
@@ -30,6 +35,26 @@ const Todolist: React.FC = () => {
           />
           <S.AddButton type="submit">Add</S.AddButton>
         </S.Form>
+        <div className="flex justify-center mt-4 space-x-4">
+          <button
+            className={`px-4 py-2 rounded ${filter === 'all' ? 'bg-gray-500 text-white' : 'bg-gray-200'}`}
+            onClick={() => handleFilterChange('all')}
+          >
+            All
+          </button>
+          <button
+            className={`px-4 py-2 rounded ${filter === 'completed' ? 'bg-gray-500 text-white' : 'bg-gray-200'}`}
+            onClick={() => handleFilterChange('completed')}
+          >
+            Completed
+          </button>
+          <button
+            className={`px-4 py-2 rounded ${filter === 'pending' ? 'bg-gray-500 text-white' : 'bg-gray-200'}`}
+            onClick={() => handleFilterChange('pending')}
+          >
+            Pending
+          </button>
+        </div>
         <div className="space-y-2" >
           {loading ? (
             <p>Loading to-dos...</p>
@@ -39,7 +64,7 @@ const Todolist: React.FC = () => {
             <>
               {todos.map((todo: any) => (
                 <TodoItem
-                  key={todo.id}
+                  key={`todo-${todo.id}`}
                   id={todo.id}
                   text={todo.text}
                   completed={todo.completed}
@@ -53,7 +78,7 @@ const Todolist: React.FC = () => {
         </div>
 
       </S.FormWrapper>
-    </S.Container>
+    </S.Container >
   );
 };
 

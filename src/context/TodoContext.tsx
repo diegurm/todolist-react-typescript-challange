@@ -18,6 +18,7 @@ interface TodoContextType {
   toggleComplete: (id: string) => void;
   removeTodo: (id: string) => void;
   editTodo: (id: string, newText: string) => void; 
+  filterTodos: (status: 'all' | 'completed' | 'pending') => void;
 }
 
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
@@ -28,24 +29,30 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true); // Estado de carregamento
 
   useEffect(() => {
-    if (!currentUser) return;
+    if (!currentUser) return;   
 
-    const fetchTodos = async () => {
-      setLoading(true);
-
-      const q = query(collection(db, 'todos'), where('userId', '==', currentUser.uid));
-      const querySnapshot = await getDocs(q);
-      const todosData = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as Todo[];
-
-      setTodos(todosData);
-      setLoading(false);
-    };
-
-    fetchTodos();
+    fetchTodos('all'); 
   }, [currentUser]);
+
+  const fetchTodos = async (status: 'all' | 'completed' | 'pending') => {
+    setLoading(true);
+
+    let q = query(collection(db, 'todos'), where('userId', '==', currentUser.uid));
+    if (status === 'completed') {
+      q = query(q, where('completed', '==', true));
+    } else if (status === 'pending') {
+      q = query(q, where('completed', '==', false));
+    }
+
+    const querySnapshot = await getDocs(q);
+    const todosData = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as Todo[];
+
+    setTodos(todosData);
+    setLoading(false);
+  };
 
   const addTodo = async (text: string) => {
     if (!currentUser) return;
@@ -108,8 +115,12 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const filterTodos = (status: 'all' | 'completed' | 'pending') => {
+    fetchTodos(status);
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, loading, addTodo, toggleComplete, removeTodo, editTodo }}>
+    <TodoContext.Provider value={{ todos, loading, addTodo, toggleComplete, removeTodo, editTodo, filterTodos }}>
       {children}
     </TodoContext.Provider>
   );

@@ -16,3 +16,14 @@ export const Text = styled.span.attrs<{ completed: boolean }>({
 export const Button = styled.button.attrs({
   className: 'text-red-600 hover:text-red-800 focus:outline-none',
 })``;
+
+
+export const Input = styled.input.attrs({
+  type: 'text',
+  className: 'flex-grow px-3 py-2 mr-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500',
+})``;
+
+export const Checkbox = styled.input.attrs({
+  type: 'checkbox',
+  className: "mr-2 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500",
+})``;

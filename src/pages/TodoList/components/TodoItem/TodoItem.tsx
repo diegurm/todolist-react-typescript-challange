@@ -22,22 +22,19 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, text, completed, toggleComplete
     setIsEditing(!isEditing);
   };
 
-
   return (
     <S.Container completed={completed}>
       <div className="flex items-center">
-        <input
-          type="checkbox"
-          checked={completed}
-          onChange={() => toggleComplete(id)}
-          className="mr-2 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-        />
+        {!isEditing && (
+          <S.Checkbox
+            checked={completed}
+            onChange={() => toggleComplete(id)}
+          />
+        )}
         {isEditing ? (
-          <input
-            type="text"
+          <S.Input
             value={newText}
             onChange={(e) => setNewText(e.target.value)}
-            className="border p-1"
           />
         ) : (
           <S.Text completed={completed}>{text}</S.Text>
@@ -52,7 +49,6 @@ const TodoItem: React.FC<TodoItemProps> = ({ id, text, completed, toggleComplete
             Remove
           </S.Button>
         )}
-
       </div>
     </S.Container>
   );
