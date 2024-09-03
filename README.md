@@ -1,6 +1,8 @@
 # 📝 Aplicação de Lista de Tarefas
 Este repositório contém uma aplicação simples de Lista de Tarefas desenvolvida com React, TypeScript, Firebase e Tailwind CSS.
 
+<img alt="" src="./app-demo.gif">
+
 ## 🚀 Objetivo
 Criar uma aplicação responsiva e intuitiva de lista de tarefas, onde o usuário pode gerenciar suas atividades de forma eficiente.
 
@@ -42,10 +44,10 @@ yarn start
 
 ## 📝 A Fazer
  * [x] Autenticação com Firebase
- * [ ] CRUD de Tarefas com Firebase
- * [ ] Filtros de Tarefas com Firebase
- * [ ] Gerenciamento de Estado (Redux + Context API)
- * [ ] Testes Automatizados
+ * [x] CRUD de Tarefas com Firebase
+ * [x] Filtros de Tarefas com Firebase
+ * [x] Gerenciamento de Estado (Redux + Context API)
+ * [] Testes Automatizados
  * [ ] Deploy
 
 ## 📜 Licença
